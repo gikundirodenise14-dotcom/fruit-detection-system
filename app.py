@@ -10,7 +10,7 @@ st.set_page_config(
     layout="wide",
 )
 
-MODEL_PATH = Path(__file__).parent / "best.pt"
+model = YOLO("yolo11m.pt")
 
 @st.cache_resource
 def load_model():
