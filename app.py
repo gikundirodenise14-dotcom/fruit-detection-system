@@ -1,6 +1,6 @@
 from pathlib import Path
 import io
-
+import os
 import streamlit as st
 from PIL import Image
 from ultralytics import YOLO
@@ -10,14 +10,14 @@ st.set_page_config(
     layout="wide",
 )
 
+model_path = os.path.join(os.path.dirname(__file__), "best.pt")
+
+if os.path.exists(model_path):
+    model = YOLO(model_path)
+else:
+    raise FileNotFoundError("best.pt model file not found!")
 MODEL_PATH = Path(__file__).parent / " best.pt "
 
-@st.cache_resource
-def load_model():
-    if not MODEL_PATH.exists():
-        raise FileNotFoundError(
-            "The model file 'best.pt' was not found. Add best.pt to the same "
-            "GitHub repository folder as app.py."
         )
     return YOLO(str(MODEL_PATH))
 
